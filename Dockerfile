@@ -1,6 +1,7 @@
-FROM ubuntu
+FROM node:10.16.1
 
-RUN export TZ=US/Eastern
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=US/Eastern
 
 RUN apt-get update
 
@@ -12,8 +13,8 @@ RUN apt-get install -qy openssh-server && \
     mkdir -p /var/run/sshd
 
 #NodeJS
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
-RUN apt-get install -qy nodejs
+#RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
+#RUN apt-get install -qy nodejs
 
 #Chrome
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
@@ -22,7 +23,7 @@ RUN apt-get update
 RUN apt-get install -qy google-chrome-stable
 
 # Cleanup old packages
-RUN apt-get -qy autoremove
+#RUN apt-get -qy autoremove
 
 # Add user jenkins to the image
 RUN adduser --quiet jenkins
